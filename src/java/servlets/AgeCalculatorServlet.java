@@ -13,34 +13,42 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AgeCalculatorServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
   
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").forward(request, response);
       
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String age = request.getParameter("age");
+        
+        request.setAttribute("age", age);
+        int entry;
+        if (age == null || age.equals("")){
+             request.setAttribute("message", "You must give your current age.");
+              getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").forward(request,response);
+            return;// Very important! Stop the code call.
+        }
+        else {
+            try {
+         entry = Integer.parseInt(age);
+    } catch (NumberFormatException nonNumeric) {
+        request.setAttribute("message", "You must enter a number.");
+         getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").forward(request,response);
+            return;// Very important! Stop the code call.
+    }
+        request.setAttribute("message", "Your age next birthday is " + (entry + 1));    
+         getServletContext().getRequestDispatcher("/WEB-INF/ageCalculator.jsp").forward(request,response);
+            return;// Very important! Stop the code call.
+        }
        
     }
 
