@@ -18,7 +18,7 @@
             <input type="text" name="first" value="" >
             <br>
             <label>Second:</label>
-            <input type="text" name="second" value="" >
+                <input type="text" name="second" value="">
             <br>
             <input type="submit" value="+" name="calc">
             <input type="submit" value="-" name="calc">
